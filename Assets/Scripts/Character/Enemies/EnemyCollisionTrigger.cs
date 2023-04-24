@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Character.Enemies
 {
-    [RequireComponent(typeof(Collider2D)), RequireComponent(typeof(EnemyCore))]
+    [RequireComponent(typeof(Collider2D)), RequireComponent(typeof(EnemyModel))]
     public class EnemyCollisionTrigger : MonoBehaviour
     {
-        private EnemyCore _enemyCore;
+        private EnemyModel _enemyModel;
 
         private void Start()
         {
-            _enemyCore = GetComponent<EnemyCore>();
+            _enemyModel = GetComponent<EnemyModel>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -18,8 +18,8 @@ namespace Character.Enemies
             if (other.gameObject.TryGetComponent(out IDamageable damageable) 
                 && other.gameObject.TryGetComponent(out IPlayer player))
             {
-                damageable.TakeDamage(_enemyCore.Damage);
-                _enemyCore.DestroySelf();
+                damageable.TakeDamage(_enemyModel.Damage);
+                _enemyModel.DestroySelf();
             }
         }
     }

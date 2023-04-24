@@ -1,17 +1,20 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using ScriptableObjects;
-using Zenject;
+using UnityEngine;
 
-namespace Character.Player
+namespace Character
 {
-    public class PlayerCore : Unit<PlayerUnitSettings>, IDamageable, IPlayer
+    [RequireComponent(typeof(AbstractUnitModel))]
+    public class DamageReceiverModule : MonoBehaviour, IDamageable
     {
-        [Inject]
-        public void SetDependency(PlayerUnitSettings settings)
+        private UnitModel<UnitScriptableObjectBase> _unit;
+
+        private void Start()
         {
-            Initialize(settings);
+            _unit = GetComponent<UnitModel<UnitScriptableObjectBase>>();
         }
-        
+
         public void TakeDamage(float amount)
         {
             /// Формула указанная в ТЗ довольно странная.
@@ -22,7 +25,13 @@ namespace Character.Player
             /// Чем больше защита, тем больше урона получает юнит.
             /// На реальном проекте я бы уточнил этот момент у фичаовнера/человека, который состовлял ТЗ/Док,
             /// что конкретно имелось ввиду.
-            Health -= amount * Defence;
+
+            if (_unit == null)
+            {
+                throw new Exception("ERROR: Cannot apply damage to unit without reference");
+            }
+            
+            _unit.Health -= amount * _unit.Defence;
         }
     }
 }

@@ -12,9 +12,9 @@ namespace Utils
         private Transform _player;
         
         [Inject]
-        public void SetDependency(PlayerCore playerCore)
+        public void SetDependency(PlayerModel playerModel)
         {
-            _player = playerCore.transform;
+            _player = playerModel.transform;
         }
 
         private void LateUpdate()

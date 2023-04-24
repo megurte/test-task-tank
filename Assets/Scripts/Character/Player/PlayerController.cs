@@ -7,27 +7,27 @@ namespace Character.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        private PlayerCore _playerCore;
+        private PlayerModel _playerModel;
 
         [Inject]
-        public void SetDependency(PlayerCore playerCore)
+        public void SetDependency(PlayerModel playerModel)
         {
-            _playerCore = playerCore;
+            _playerModel = playerModel;
         }
 
         private void OnEnable()
         {
-            PlayerCore.UnitDied += DestroyPlayerUnit;
+            PlayerModel.UnitDied += DestroyPlayerUnit;
         }
 
         private void OnDestroy()
         {
-            PlayerCore.UnitDied += DestroyPlayerUnit;
+            PlayerModel.UnitDied += DestroyPlayerUnit;
         }
         
-        private void DestroyPlayerUnit(Unit<PlayerUnitSettings> player)
+        private void DestroyPlayerUnit(UnitModel<PlayerUnitSettings> player)
         {
-            _playerCore.gameObject.SetActive(false);
+            _playerModel.gameObject.SetActive(false);
         }
     }
 }

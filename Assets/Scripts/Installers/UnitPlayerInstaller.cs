@@ -7,13 +7,13 @@ namespace Installers
 {
     public class UnitPlayerInstaller : MonoInstaller
     {
-        [SerializeField] private PlayerCore playerCore;
+        [SerializeField] private PlayerModel playerModel;
         [SerializeField] private PlayerUnitSettings playerUnitSettings;
         
         public override void InstallBindings()
         {
             Container.Bind<PlayerUnitSettings>().FromInstance(playerUnitSettings).AsSingle().NonLazy();
-            Container.Bind<PlayerCore>().FromInstance(playerCore).AsSingle();
+            Container.Bind<PlayerModel>().FromInstance(playerModel).AsSingle();
         }
     }
 }

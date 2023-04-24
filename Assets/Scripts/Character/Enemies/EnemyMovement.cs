@@ -6,19 +6,21 @@ using Zenject;
 
 namespace Character.Enemies
 {
-    [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(EnemyCore)), RequireComponent(typeof(MovementToTarget))]
+    [RequireComponent(typeof(Rigidbody2D)),
+     RequireComponent(typeof(EnemyModel)),
+     RequireComponent(typeof(MovementToTarget))]
     public class EnemyMovement : MonoBehaviour
     {
-        private PlayerCore _player;
-        private EnemyCore _enemyCore;
+        private PlayerModel _player;
+        private EnemyModel _enemyModel;
         private IMovement<Transform> _moveLogic;
         private bool _isMoving = default;
 
         [Inject]
-        public void SetDependency(PlayerCore playerCore)
+        public void SetDependency(PlayerModel playerModel)
         {
-            _enemyCore = GetComponent<EnemyCore>();
-            _player = playerCore;
+            _enemyModel = GetComponent<EnemyModel>();
+            _player = playerModel;
         }
 
         private void Update()
@@ -27,7 +29,7 @@ namespace Character.Enemies
 
             if (_moveLogic == null || _isMoving) return;
             
-            _moveLogic.Move(_player.transform, _enemyCore.MovementSpeed);
+            _moveLogic.Move(_player.transform, _enemyModel.MovementSpeed);
             _isMoving = true;
         }
 

@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Character.Player
 {
-    [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerCore)), RequireComponent(typeof(PlayerCore))]
+    [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerModel)), RequireComponent(typeof(PlayerModel))]
     public class PlayerMovement : MonoBehaviour
     {
         public event Action<Vector2> FacingDirection;
@@ -13,21 +13,21 @@ namespace Character.Player
         private Vector2 _moveDirection;
         private Rigidbody2D _rigidbody2D;
         private InputService _inputService;
-        private PlayerCore _playerCore;
+        private PlayerModel _playerModel;
         
         [Inject]
         public void SetDependency(InputService inputService)
         {
             _inputService = inputService;
             _rigidbody2D = GetComponent<Rigidbody2D>();
-            _playerCore = GetComponent<PlayerCore>();
+            _playerModel = GetComponent<PlayerModel>();
         }
 
         private void FixedUpdate()
         {
             if (_moveDirection != Vector2.zero)
             {
-                _rigidbody2D.MovePosition(_rigidbody2D.position + _moveDirection * _playerCore.MovementSpeed 
+                _rigidbody2D.MovePosition(_rigidbody2D.position + _moveDirection * _playerModel.MovementSpeed 
                     * Time.fixedDeltaTime);
             }
         }

@@ -8,11 +8,11 @@ using Zenject;
 
 namespace Factories
 {
-    public class EnemyFactory : GenericFactory<Unit<EnemyUnitSettings>>
+    public class EnemyFactory : GenericFactory<UnitModel<EnemyUnitSettings>>
     {
-        [SerializeField] private Unit<EnemyUnitSettings> enemyDummyPrefab;
+        [SerializeField] private UnitModel<EnemyUnitSettings> enemyDummyPrefab;
         
-        private readonly List<Unit<EnemyUnitSettings>> _enemyPool = new List<Unit<EnemyUnitSettings>>();
+        private readonly List<UnitModel<EnemyUnitSettings>> _enemyPool = new List<UnitModel<EnemyUnitSettings>>();
         private DiContainer _diContainer;
         
         [Inject]
@@ -21,7 +21,7 @@ namespace Factories
             _diContainer = diContainer;
         }
 
-        public override Unit<EnemyUnitSettings> SpawnNewObject(Vector2 position)
+        public override UnitModel<EnemyUnitSettings> SpawnNewObject(Vector2 position)
         {
             foreach (var enemy in _enemyPool.Where(enemy => !enemy.gameObject.activeInHierarchy))
             {
@@ -31,7 +31,7 @@ namespace Factories
             }
 
             // If there are no inactive enemies in the pool, create a new one
-            var newEnemy = _diContainer.InstantiatePrefabForComponent<Unit<EnemyUnitSettings>>(enemyDummyPrefab,
+            var newEnemy = _diContainer.InstantiatePrefabForComponent<UnitModel<EnemyUnitSettings>>(enemyDummyPrefab,
                 transform);
             
             newEnemy.SetPosition(position);
@@ -39,7 +39,7 @@ namespace Factories
             return newEnemy;
         }
         
-        public override void ReturnObjectToPool(Unit<EnemyUnitSettings> enemy)
+        public override void ReturnObjectToPool(UnitModel<EnemyUnitSettings> enemy)
         {
             enemy.gameObject.SetActive(false);
         }

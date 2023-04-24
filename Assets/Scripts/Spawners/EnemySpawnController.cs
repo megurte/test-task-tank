@@ -13,7 +13,7 @@ namespace Spawners
     public class EnemySpawnController : MonoBehaviour
     {
         // Use this to work directly with active enemies
-        private List<Unit<EnemyUnitSettings>> _activeEnemies = new List<Unit<EnemyUnitSettings>>();
+        private List<UnitModel<EnemyUnitSettings>> _activeEnemies = new List<UnitModel<EnemyUnitSettings>>();
         private SpawnConfig _spawnConfig;
         private EnemyFactory _enemyFactory;
 
@@ -26,12 +26,12 @@ namespace Spawners
 
         private void OnEnable()
         {
-            Unit<EnemyUnitSettings>.UnitDied += ReplaceUnit;
+            UnitModel<EnemyUnitSettings>.UnitDied += ReplaceUnit;
         }
         
         private void OnDisable()
         {
-            Unit<EnemyUnitSettings>.UnitDied -= ReplaceUnit;
+            UnitModel<EnemyUnitSettings>.UnitDied -= ReplaceUnit;
         }
         
         public void Start()
@@ -42,15 +42,15 @@ namespace Spawners
             }
         }
 
-        private void ReplaceUnit(Unit<EnemyUnitSettings> unit)
+        private void ReplaceUnit(UnitModel<EnemyUnitSettings> unitModel)
         {
-            if (unit == null)
+            if (unitModel == null)
             {
                 throw new Exception("ERROR: no unit ro replace");
             }
 
-            _activeEnemies.Remove(unit);
-            _enemyFactory.ReturnObjectToPool(unit);
+            _activeEnemies.Remove(unitModel);
+            _enemyFactory.ReturnObjectToPool(unitModel);
             GenerateSettingsForEnemySpawn();
         }
 
@@ -70,7 +70,7 @@ namespace Spawners
             
             _activeEnemies.Add(enemy);
             
-            var enemyStats = (EnemyCore) enemy;
+            var enemyStats = (EnemyModel) enemy;
             enemyStats.SetSettings(enemySettings);
         }
     }

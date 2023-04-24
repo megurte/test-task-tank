@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Character
 {
-    public class Unit<T> : AbstractUnit where T : UnitScriptableObjectBase
+    public class UnitModel<T> : AbstractUnitModel where T : UnitScriptableObjectBase
     {
-        public static event Action<Unit<T>> UnitDied;
+        public static event Action<UnitModel<T>> UnitDied;
 
         public override Type TargetData => typeof(T);
 
@@ -15,9 +15,9 @@ namespace Character
 
         private UnitType CurrentUnitType { set; get; }
         public float MovementSpeed {private set; get; }
-        protected float Defence {private set; get; }
+        public float Defence {private set; get; }
         protected float MaxHealth {private set; get; }
-        protected float Health
+        public float Health
         {
             get => _health;
             set
