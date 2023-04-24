@@ -27,7 +27,7 @@ namespace Character.Player
         
         private void DestroyPlayerUnit(Unit<PlayerUnitSettings> player)
         {
-            Destroy(_playerCore.gameObject);
+            _playerCore.gameObject.SetActive(false);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Character.MovementLogics;
-using Interfaces;
+﻿using Interfaces;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -22,7 +21,6 @@ namespace Character.Enemies
 
             _spriteRenderer.sprite = settings.Sprite;
             _spriteRenderer.color = settings.SpriteColor;
-
         }
 
         public void TakeDamage(float amount)

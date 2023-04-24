@@ -5,10 +5,10 @@ using Zenject;
 
 namespace Character.Player
 {
-    [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerCore))]
+    [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerCore)), RequireComponent(typeof(PlayerCore))]
     public class PlayerMovement : MonoBehaviour
     {
-        public static event Action<Vector2> FacingDirection;
+        public event Action<Vector2> FacingDirection;
         
         private Vector2 _moveDirection;
         private Rigidbody2D _rigidbody2D;

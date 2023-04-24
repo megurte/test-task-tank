@@ -1,17 +1,17 @@
-﻿using System;
-using Character.MovementLogics;
-using Character.Player;
+﻿using Character.Player;
+using Interfaces;
+using Movement;
 using UnityEngine;
 using Zenject;
 
 namespace Character.Enemies
 {
-    [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(EnemyCore))]
+    [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(EnemyCore)), RequireComponent(typeof(MovementToTarget))]
     public class EnemyMovement : MonoBehaviour
     {
         private PlayerCore _player;
         private EnemyCore _enemyCore;
-        private MovementToTarget _moveLogic;
+        private IMovement<Transform> _moveLogic;
         private bool _isMoving = default;
 
         [Inject]
@@ -33,7 +33,7 @@ namespace Character.Enemies
 
         private void OnEnable()
         {
-            _moveLogic ??= gameObject.AddComponent<MovementToTarget>();
+            _moveLogic = GetComponent<IMovement<Transform>>();
         }
 
         private void OnDisable()

@@ -1,6 +1,8 @@
-﻿using Character.MovementLogics;
+﻿using System.Collections;
 using Character.Player;
+using Character.Player.Weapon;
 using Interfaces;
+using Movement;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -9,18 +11,8 @@ namespace Bullet
     public class CommonBullet : BulletBase
     {
         [SerializeField] private float bulletSpeed;
-        private MovementInDirection _moveLogic;
+        private IMovement<Vector2> _moveLogic;
         private float _damage;
-
-        private void OnEnable()
-        {
-            WeaponController.WeaponChanged += ChangeSettings;
-        }
-        
-        private void OnDestroy()
-        {
-            WeaponController.WeaponChanged -= ChangeSettings;
-        }
 
         public override void Move(Vector2 direction)
         {
@@ -31,7 +23,7 @@ namespace Bullet
         {
             _damage = settings.Damage;
 
-            _moveLogic ??= gameObject.AddComponent<MovementInDirection>();
+            _moveLogic ??= GetComponent<IMovement<Vector2>>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
