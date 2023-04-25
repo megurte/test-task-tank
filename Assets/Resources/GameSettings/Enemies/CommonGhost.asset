@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b3e229738145d7bd346cc614cbfae5, type: 3}
+  m_Name: CommonGhost
+  m_EditorClassIdentifier: 
+  defence: 0.3
+  health: 30
+  movementSpeed: 1.7
+  unitType: 2
+  damage: 15
+  gameSprite: {fileID: 21300000, guid: e99d959bfe70c344e846ad7b7a5bb72a, type: 3}
+  spriteColor: {r: 1, g: 1, b: 1, a: 0.69803923}
