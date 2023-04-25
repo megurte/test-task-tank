@@ -1,6 +1,7 @@
 ﻿using System;
+using Character.Enemies;
+using Character.Player;
 using Interfaces;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Character
@@ -8,11 +9,11 @@ namespace Character
     [RequireComponent(typeof(AbstractUnitModel))]
     public class DamageReceiverModule : MonoBehaviour, IDamageable
     {
-        private UnitModel<UnitScriptableObjectBase> _unit;
+        private AbstractUnitModel _unit;
 
         private void Start()
         {
-            _unit = GetComponent<UnitModel<UnitScriptableObjectBase>>();
+            _unit = GetComponent<AbstractUnitModel>();
         }
 
         public void TakeDamage(float amount)
@@ -30,8 +31,18 @@ namespace Character
             {
                 throw new Exception("ERROR: Cannot apply damage to unit without reference");
             }
-            
-            _unit.Health -= amount * _unit.Defence;
+
+            switch (_unit)
+            {
+                case PlayerModel playerModel:
+                    playerModel.Health -= amount * playerModel.Defence;
+                    break;
+                case EnemyModel enemyModel:
+                    enemyModel.Health -= amount * enemyModel.Defence;
+                    break;
+                default:
+                    throw new Exception("ERROR: Unknown unit type");
+            }
         }
     }
 }

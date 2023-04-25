@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Constants;
 using Factories;
 using ScriptableObjects;
 using Services;
@@ -19,7 +20,7 @@ namespace Character.Player.Weapon
         private InputService _inputService;
         private BulletFactory _bulletFactory;
         private int _currentWeaponIndex = default;
-        private Vector2 _facingDirection = new Vector2(0,1);
+        private Vector2 _facingDirection = ValueConstants._defaultFacingDirection;
 
         [Inject]
         public void SetDependency(InputService inputService, BulletFactory bulletFactory, PlayerUnitSettings playerUnitSettings)

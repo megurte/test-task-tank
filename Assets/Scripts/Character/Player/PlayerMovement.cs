@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Character.Player
 {
-    [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerModel)), RequireComponent(typeof(PlayerModel))]
+    [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(PlayerModel))]
     public class PlayerMovement : MonoBehaviour
     {
         public event Action<Vector2> FacingDirection;

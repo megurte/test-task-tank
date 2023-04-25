@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Bullet
 {
-    public class CommonBullet : BulletBase
+    public class CommonBulletModel : BulletAbstract
     {
         [SerializeField] private float bulletSpeed;
         private IMovement<Vector2> _moveLogic;
@@ -25,7 +25,7 @@ namespace Bullet
 
             _moveLogic ??= GetComponent<IMovement<Vector2>>();
         }
-
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.TryGetComponent(out IDamageable damageable) 

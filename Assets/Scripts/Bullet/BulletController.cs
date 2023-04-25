@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Character;
 using Factories;
-using ScriptableObjects;
 using UnityEngine;
 using Zenject;
 
@@ -10,9 +8,8 @@ namespace Bullet
 {
     public class BulletController : MonoBehaviour
     {
-        // Use this to work directly with active enemies
-        private List<BulletBase> _activeBullets = new List<BulletBase>();
         private BulletFactory _factory;
+        private List<BulletAbstract> _bulletCollection;
 
         [Inject]
         public void SetDependency(BulletFactory factory)
@@ -20,34 +17,32 @@ namespace Bullet
             _factory = factory;
         }
 
-        private void OnEnable()
-        {
-            BulletBase.OnBulletHit += ReplaceObject;
-        }
-        
-        private void OnDisable()
-        {
-            BulletBase.OnBulletHit -= ReplaceObject;
-        }
-        
         public void Start()
         {
+            _bulletCollection = new List<BulletAbstract>();
+            
             for (var i = 0; i < _factory.GetPoolSize(); i++)
             {
                 var bullet = _factory.SpawnNewObject(transform.position);
-                
-                _activeBullets.Add(bullet);
+
+                bullet.OnBulletHit += ReplaceObject;
+                _bulletCollection.Add(bullet);
+            }
+
+            // To prevent using the same object in cycle of SpawnNewObject()
+            foreach (var bullet in _bulletCollection)
+            {
+                bullet.gameObject.SetActive(false);
             }
         }
 
-        private void ReplaceObject(BulletBase bullet)
+        private void ReplaceObject(BulletAbstract bullet)
         {
             if (bullet == null)
             {
                 throw new Exception("ERROR: no object to replace");
             }
-
-            _activeBullets.Remove(bullet);
+            
             _factory.ReturnObjectToPool(bullet);
         }
     }

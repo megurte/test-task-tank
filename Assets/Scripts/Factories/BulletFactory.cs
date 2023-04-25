@@ -1,74 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Bullet;
-using ScriptableObjects;
+using Constants;
 using UnityEngine;
-using Zenject;
 
 namespace Factories
 {
-    public class BulletFactory : GenericFactory<BulletBase>
+    public class BulletFactory : GenericFactory<BulletAbstract>
     {
-        [SerializeField] private BulletBase bulletPrefab;
-        [SerializeField] private int poolSize = 20;
+        [SerializeField] private BulletAbstract bulletPrefab;
 
-        private Queue<BulletBase> _bulletPool;
-        private readonly List<BulletBase> _enemyPool = new List<BulletBase>();
-        private DiContainer _diContainer;
+        private const int PoolSize = ValueConstants.BulletPoolSize;
+        private List<BulletAbstract> _bulletPool;
 
-        [Inject]
-        public void SetDependency(DiContainer diContainer)
+        public override BulletAbstract SpawnNewObject(Vector2 position)
         {
-            _diContainer = diContainer;
-        }
-        
-        private void Awake()
-        {
-            BulletBase.OnBulletHit += ReturnObjectToPool;
+            _bulletPool ??= new List<BulletAbstract>();
 
-            _bulletPool = new Queue<BulletBase>();
-
-            for (var i = 0; i < poolSize; i++)
+            foreach (var bullet in _bulletPool.Where(bullet => !bullet.gameObject.activeInHierarchy))
             {
-                var bullet = _diContainer.InstantiatePrefabForComponent<BulletBase>(bulletPrefab, transform);
-                
-                bullet.gameObject.SetActive(false);
-                _enemyPool.Add(bullet);
-            }
-        }
-
-        public override BulletBase SpawnNewObject(Vector2 position)
-        {
-            if (_bulletPool.Count > 0)
-            {
-                var bullet = _bulletPool.Dequeue();
                 bullet.gameObject.SetActive(true);
                 bullet.transform.position = position;
-                return bullet;
-            }
-            else
-            {
-                var bullet = _diContainer.InstantiatePrefabForComponent<BulletBase>(bulletPrefab, position,
-                    Quaternion.identity, transform);
                 
                 return bullet;
             }
+
+            var newBullet = Instantiate(bulletPrefab, position,
+                Quaternion.identity, transform);
+                
+            _bulletPool.Add(newBullet);
+            
+            return newBullet;
         }
 
-        public override void ReturnObjectToPool(BulletBase targetObject)
+        public override void ReturnObjectToPool(BulletAbstract targetObject)
         {
             targetObject.gameObject.SetActive(false);
-            _bulletPool.Enqueue(targetObject);
         }
-
-        private void OnDisable()
-        {
-            BulletBase.OnBulletHit -= ReturnObjectToPool;
-        }
-
+        
         public int GetPoolSize()
         {
-            return poolSize;
+            return PoolSize;
         }
     }
 }

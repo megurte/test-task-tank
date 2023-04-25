@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Bullet
 {
-    public abstract class BulletBase : MonoBehaviour
+    public abstract class BulletAbstract : MonoBehaviour
     {
-        public static event Action<BulletBase> OnBulletHit;
+        public event Action<BulletAbstract> OnBulletHit;
 
         public abstract void Move(Vector2 direction);
         

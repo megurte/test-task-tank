@@ -24,16 +24,6 @@ namespace Spawners
             _enemyFactory = enemyFactory;
         }
 
-        private void OnEnable()
-        {
-            UnitModel<EnemyUnitSettings>.UnitDied += ReplaceUnit;
-        }
-        
-        private void OnDisable()
-        {
-            UnitModel<EnemyUnitSettings>.UnitDied -= ReplaceUnit;
-        }
-        
         public void Start()
         {
             for (var i = 0; i < _spawnConfig.PoolSize; i++)
@@ -69,9 +59,16 @@ namespace Spawners
             }
             
             _activeEnemies.Add(enemy);
+            enemy.UnitDied += ReplaceUnit;
             
-            var enemyStats = (EnemyModel) enemy;
-            enemyStats.SetSettings(enemySettings);
+            var enemyController = enemy.gameObject.GetComponent<EnemyController>();
+
+            if (enemyController == null)
+            {
+                throw new Exception($"ERROR: No enemy controller in object.");
+            }
+            
+            enemyController.SetSettings(enemySettings);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Character;
-using Character.Enemies;
 using ScriptableObjects;
 using UnityEngine;
 using Zenject;
@@ -11,8 +10,8 @@ namespace Factories
     public class EnemyFactory : GenericFactory<UnitModel<EnemyUnitSettings>>
     {
         [SerializeField] private UnitModel<EnemyUnitSettings> enemyDummyPrefab;
-        
-        private readonly List<UnitModel<EnemyUnitSettings>> _enemyPool = new List<UnitModel<EnemyUnitSettings>>();
+
+        private List<UnitModel<EnemyUnitSettings>> _enemyPool;
         private DiContainer _diContainer;
         
         [Inject]
@@ -23,10 +22,13 @@ namespace Factories
 
         public override UnitModel<EnemyUnitSettings> SpawnNewObject(Vector2 position)
         {
+            _enemyPool ??= new List<UnitModel<EnemyUnitSettings>>();
+            
             foreach (var enemy in _enemyPool.Where(enemy => !enemy.gameObject.activeInHierarchy))
             {
                 enemy.gameObject.SetActive(true);
                 enemy.SetPosition(position);
+                
                 return enemy;
             }
 
@@ -36,6 +38,7 @@ namespace Factories
             
             newEnemy.SetPosition(position);
             _enemyPool.Add(newEnemy);
+            
             return newEnemy;
         }
         

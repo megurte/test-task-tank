@@ -1,5 +1,4 @@
-﻿using System;
-using ScriptableObjects;
+﻿using ScriptableObjects;
 using UnityEngine;
 using Zenject;
 
@@ -17,12 +16,12 @@ namespace Character.Player
 
         private void OnEnable()
         {
-            PlayerModel.UnitDied += DestroyPlayerUnit;
+            _playerModel.UnitDied += DestroyPlayerUnit;
         }
 
         private void OnDestroy()
         {
-            PlayerModel.UnitDied += DestroyPlayerUnit;
+            _playerModel.UnitDied += DestroyPlayerUnit;
         }
         
         private void DestroyPlayerUnit(UnitModel<PlayerUnitSettings> player)

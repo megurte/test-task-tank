@@ -11,16 +11,11 @@ namespace Character.Enemies
         
         private SpriteRenderer _spriteRenderer;
 
-        public void SetSettings(EnemyUnitSettings settings)
+        public void SetEnemyModel(EnemyUnitSettings settings)
         {
             Initialize(settings);
 
             Damage = settings.Damage;
-
-            _spriteRenderer ??= GetComponent<SpriteRenderer>();
-
-            _spriteRenderer.sprite = settings.Sprite;
-            _spriteRenderer.color = settings.SpriteColor;
         }
     }
 }

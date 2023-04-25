@@ -1,5 +1,4 @@
 ﻿using System;
-using Constants;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -7,13 +6,11 @@ namespace Character
 {
     public class UnitModel<T> : AbstractUnitModel where T : UnitScriptableObjectBase
     {
-        public static event Action<UnitModel<T>> UnitDied;
+        public event Action<UnitModel<T>> UnitDied;
 
         public override Type TargetData => typeof(T);
-
+        
         private float _health;
-
-        private UnitType CurrentUnitType { set; get; }
         public float MovementSpeed {private set; get; }
         public float Defence {private set; get; }
         protected float MaxHealth {private set; get; }
@@ -58,7 +55,6 @@ namespace Character
             MaxHealth = config.Health;
             Health = MaxHealth;
             Defence = config.Defence;
-            CurrentUnitType = config.UnitType;
             MovementSpeed = config.MovementSpeed;
         }
     }
