@@ -1,4 +1,5 @@
 ﻿using System;
+using ScriptableObjects;
 using Services;
 using UnityEngine;
 using Zenject;
@@ -54,19 +55,8 @@ namespace Character.Player
             _inputService.StopMovementDown += StopPlayerDown;
             _inputService.StopMovementRight += StopPlayerRight;
             _inputService.StopMovementLeft += StopPlayerLeft;
-        }
 
-        private void OnDisable()
-        {
-            _inputService.MovementControlUp -= MovePlayerUp;
-            _inputService.MovementControlDown -= MovePlayerDown;
-            _inputService.MovementControlRight -= MovePlayerRight;
-            _inputService.MovementControlLeft -= MovePlayerLeft;
-
-            _inputService.StopMovementUp -= StopPlayerUp;
-            _inputService.StopMovementDown -= StopPlayerDown;
-            _inputService.StopMovementRight -= StopPlayerRight;
-            _inputService.StopMovementLeft -= StopPlayerLeft;
+            _playerModel.UnitDied += Unsubscribe;
         }
 
         private void MovePlayerUp()
@@ -123,6 +113,21 @@ namespace Character.Player
             {
                 StopPlayer();
             }
+        }
+
+        private void Unsubscribe(UnitModel<PlayerUnitSettings> player)
+        {
+            _inputService.MovementControlUp -= MovePlayerUp;
+            _inputService.MovementControlDown -= MovePlayerDown;
+            _inputService.MovementControlRight -= MovePlayerRight;
+            _inputService.MovementControlLeft -= MovePlayerLeft;
+
+            _inputService.StopMovementUp -= StopPlayerUp;
+            _inputService.StopMovementDown -= StopPlayerDown;
+            _inputService.StopMovementRight -= StopPlayerRight;
+            _inputService.StopMovementLeft -= StopPlayerLeft;
+
+            _playerModel.UnitDied -= Unsubscribe;
         }
     }
 }

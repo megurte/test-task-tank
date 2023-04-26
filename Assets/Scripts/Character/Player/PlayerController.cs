@@ -19,13 +19,9 @@ namespace Character.Player
             _playerModel.UnitDied += DestroyPlayerUnit;
         }
 
-        private void OnDestroy()
-        {
-            _playerModel.UnitDied += DestroyPlayerUnit;
-        }
-        
         private void DestroyPlayerUnit(UnitModel<PlayerUnitSettings> player)
         {
+            _playerModel.UnitDied -= DestroyPlayerUnit;
             _playerModel.gameObject.SetActive(false);
         }
     }
