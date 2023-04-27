@@ -32,13 +32,5 @@ namespace Utils
 
             return result;
         }
-        
-        public static Vector2 GetDirection(Vector2 targetPos, Vector2 objectPosition)
-        {
-            var heading = targetPos - objectPosition;
-            var distance = heading.magnitude;
-
-            return heading / distance;
-        }
     }
 }

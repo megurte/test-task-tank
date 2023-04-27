@@ -621,6 +621,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6019456674119132315, guid: e095796293830364ab186c460a37c544,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e095796293830364ab186c460a37c544, type: 3}
 --- !u!1 &1292788308
@@ -678,7 +683,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1411975225}
   - component: {fileID: 1411975226}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -941,7 +946,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: -4409864448692722193, guid: e401d81f39854e64d8cff7225f8a99a9,
     type: 3}
-  poolSize: 10
 --- !u!1 &1816272967
 GameObject:
   m_ObjectHideFlags: 0

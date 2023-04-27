@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using Character.Player;
-using Character.Player.Weapon;
+﻿using Constants;
 using Interfaces;
-using Movement;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -10,13 +7,13 @@ namespace Bullet
 {
     public class CommonBulletModel : BulletAbstract
     {
-        [SerializeField] private float bulletSpeed;
+        private float _bulletSpeed => ValueConstants.BulletDefaultSeep;
         private IMovement<Vector2> _moveLogic;
         private float _damage;
 
         public override void Move(Vector2 direction)
         {
-            _moveLogic.Move(direction, bulletSpeed);
+            _moveLogic.Move(direction, _bulletSpeed);
         }
         
         public override void ChangeSettings(PlayerWeaponSettings settings)

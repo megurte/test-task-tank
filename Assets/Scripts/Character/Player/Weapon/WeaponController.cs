@@ -5,7 +5,6 @@ using Factories;
 using ScriptableObjects;
 using Services;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace Character.Player.Weapon

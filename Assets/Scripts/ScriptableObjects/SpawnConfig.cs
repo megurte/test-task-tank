@@ -28,6 +28,7 @@ namespace ScriptableObjects
         public int PoolSize => maxEnemyPoolSize;
     }
 
+    // Modify this to add different parameters to spawn specific enemy
     [Serializable]
     public class EnemySpawnSettings
     {

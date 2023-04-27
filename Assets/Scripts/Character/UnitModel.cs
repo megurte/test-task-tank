@@ -13,7 +13,6 @@ namespace Character
         private float _health;
         public float MovementSpeed {private set; get; }
         public float Defence {private set; get; }
-        protected float MaxHealth {private set; get; }
         public float Health
         {
             get => _health;
@@ -27,11 +26,7 @@ namespace Character
                 }
             }
         }
-        
-        public void DestroySelf()
-        {
-            Health = 0;
-        }
+        protected float MaxHealth {private set; get; }
 
         public void SetPosition(Vector2 newPosition)
         {
@@ -56,6 +51,11 @@ namespace Character
             Health = MaxHealth;
             Defence = config.Defence;
             MovementSpeed = config.MovementSpeed;
+        }
+        
+        public void DestroySelf()
+        {
+            Health = 0;
         }
     }
 }

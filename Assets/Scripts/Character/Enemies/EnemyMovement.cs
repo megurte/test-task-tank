@@ -1,14 +1,11 @@
 ﻿using Character.Player;
 using Interfaces;
-using Movement;
 using UnityEngine;
 using Zenject;
 
 namespace Character.Enemies
 {
-    [RequireComponent(typeof(Rigidbody2D)),
-     RequireComponent(typeof(EnemyModel)),
-     RequireComponent(typeof(MovementToTarget))]
+    [RequireComponent(typeof(EnemyModel)), RequireComponent(typeof(IMovement))]
     public class EnemyMovement : MonoBehaviour
     {
         private PlayerModel _player;
