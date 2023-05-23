@@ -87,4 +87,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd5ac254f69484eb9c99150952fd245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputService: {fileID: -2132463954572510713}
+  keyboardInput: {fileID: -2132463954572510713}

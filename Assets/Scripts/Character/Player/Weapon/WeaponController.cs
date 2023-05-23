@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Constants;
 using Factories;
+using Interfaces;
 using ScriptableObjects;
 using Services;
 using UnityEngine;
@@ -16,13 +17,13 @@ namespace Character.Player.Weapon
 
         private PlayerMovement _playerMovement;
         private List<PlayerWeaponSettings> _weaponArmory = new List<PlayerWeaponSettings>();
-        private InputService _inputService;
+        private IInputService _inputService;
         private BulletFactory _bulletFactory;
         private int _currentWeaponIndex = default;
         private Vector2 _facingDirection = ValueConstants._defaultFacingDirection;
 
         [Inject]
-        public void SetDependency(InputService inputService, BulletFactory bulletFactory, PlayerUnitSettings playerUnitSettings)
+        public void SetDependency(IInputService inputService, BulletFactory bulletFactory, PlayerUnitSettings playerUnitSettings)
         {
             _weaponArmory = playerUnitSettings.AvailableWeapons;
             _inputService = inputService;

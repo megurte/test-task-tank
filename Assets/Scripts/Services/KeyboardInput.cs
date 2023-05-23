@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Interfaces;
 using UnityEngine;
 
 namespace Services
 {
     // Can be extended by separate config with key binds
-    public class InputService : MonoBehaviour
+    public class KeyboardInput : MonoBehaviour, IInputService
     {
         public event Action ChangeWeaponToRight;
         public event Action ChangeWeaponToLeft;

@@ -1,4 +1,5 @@
 ﻿using System;
+using Interfaces;
 using Services;
 using UnityEngine;
 using Zenject;
@@ -12,11 +13,11 @@ namespace Character.Player
         
         private Vector2 _moveDirection;
         private Rigidbody2D _rigidbody2D;
-        private InputService _inputService;
+        private IInputService _inputService;
         private PlayerModel _playerModel;
         
         [Inject]
-        public void SetDependency(InputService inputService)
+        public void SetDependency(IInputService inputService)
         {
             _inputService = inputService;
             _rigidbody2D = GetComponent<Rigidbody2D>();
